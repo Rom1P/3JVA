@@ -37,4 +37,5 @@ public class Picture {
     public void setCategories(String categories) {
         this.categories = categories;
     }
+
 }
