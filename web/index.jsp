@@ -1,4 +1,4 @@
-<%@ page import="utils.Listener" %><%--
+<%--
   Home Page
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -10,34 +10,36 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+
+<div id="navbarTop">
+    <%
+        if (session.getAttribute("username") == null) {
+    %>
+    <div>
+        <div>Want more features ? <a href="login.jsp">Login</a> or <a href="register.jsp">Register</a></div>
+    </div>
+
+    <% } else {
+        String currentUsername = (String) session.getAttribute("username");
+    %>
+    <a href="profile.jsp"><%= currentUsername %>
+    </a>
+    <form method="post" action="Logout">
+        <button class="btn btn-primary" type="submit">Logout</button>
+    </form>
+
+    <%
+        }
+    %>
+</div>
+
 <h1 class="titleSupPictures">Welcome to SupPictures</h1>
 
 <div id="stats">
     <p>Currently . on SupPictures</p>
     <p>We're actually hosting . pictures</p>
     <!-- TODO get stats websites -->
-</div>
-
-<div id="navbarTop">
-    <%
-        if (session.getAttribute("username") == null) {
-    %>
-    <p>COUCOU ON EST PAS CO LA</p>
-
-    <% }
-    else {
-        String currentUsername = (String) session.getAttribute("username");
-    %>
-    <%= currentUsername %>
-    <%
-        }
-    %>
-</div>
-
-
-
-<div id="loginOrRegister">
-    <div>Want more features ? <a href="login.jsp">Login</a> or <a href="register.jsp">Register</a></div>
 </div>
 
 <div id="browsePictures">
