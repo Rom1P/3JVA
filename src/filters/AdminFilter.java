@@ -21,7 +21,7 @@ public class AdminFilter implements Filter {
         if (session.getAttribute("username") == null) {
             response.sendRedirect("index.jsp");
         } else if (session.getAttribute("level").toString().equals("1")){
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("index.jsp");
         }
 
         else{

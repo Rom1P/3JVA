@@ -49,6 +49,12 @@
 
     <!-- TODO search engine -->
 </div>
+
+<form action="AddPicture" method="post" enctype="multipart/form-data">
+    <input type="file" name="fileUploadInput" accept="image/*"/>
+    <input type="submit"/>
+</form>
+
 </body>
 
 

@@ -1,4 +1,4 @@
-<%@ page import="utils.Listener" %><%--
+<%--
   Home Page
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -20,11 +20,11 @@
         <div>Want more features ? <a href="login.jsp">Login</a> or <a href="register.jsp">Register</a></div>
     </div>
 
-    <% }
-    else {
+    <% } else {
         String currentUsername = (String) session.getAttribute("username");
     %>
-    <a href="profile.jsp"><%= currentUsername %> </a>
+    <a href="profile.jsp"><%= currentUsername %>
+    </a>
     <form method="post" action="Logout">
         <button class="btn btn-primary" type="submit">Logout</button>
     </form>
@@ -49,6 +49,12 @@
 
     <!-- TODO search engine -->
 </div>
+
+<form action="AddPicture" method="post" enctype="multipart/form-data">
+    <input type="file" name="fileUploadInput" accept="image/*"/>
+    <input type="submit" />
+</form>
+
 </body>
 
 
