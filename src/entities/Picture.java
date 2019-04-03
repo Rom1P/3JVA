@@ -4,7 +4,14 @@ public class Picture {
     private String name;
     private String description;
     private String date;
-    private String categories;
+    private String category;
+
+    public Picture(String name, String description, String date, String category) {
+        this.name = name;
+        this.description = description;
+        this.date = date;
+        this.category = category;
+    }
 
     public String getName() {
         return name;
@@ -30,12 +37,12 @@ public class Picture {
         this.date = date;
     }
 
-    public String getCategories() {
-        return categories;
+    public String getcategory() {
+        return category;
     }
 
-    public void setCategories(String categories) {
-        this.categories = categories;
+    public void setcategory(String category) {
+        this.category = category;
     }
 
 }

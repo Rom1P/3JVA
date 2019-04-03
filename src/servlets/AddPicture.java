@@ -1,5 +1,7 @@
 package servlets;
 
+import entities.Picture;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.Date;
 
 
 @WebServlet(name = "AddPicture", urlPatterns = "/AddPicture")
@@ -20,8 +23,6 @@ public class AddPicture extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Part filePart = request.getPart("fileUploadInput");
         InputStream fileContent = filePart.getInputStream();
-
-        System.out.println(fileContent);
 
         File uploads = new File("/uploads");
 
@@ -37,13 +38,24 @@ public class AddPicture extends HttpServlet {
             uploads.mkdir();
         }
 
-        File fileToSave = File.createTempFile(uploadedFileName.substring(0, uploadedFileName.length() - 4), fileExtension, uploads);
+        String shortFileName = uploadedFileName.substring(0, uploadedFileName.length() - 4);
+
+        if (shortFileName.length() < 3) {
+            shortFileName += "0";
+        }
+
+        File fileToSave = File.createTempFile(shortFileName, fileExtension, uploads);
 
         try (InputStream input = fileContent) {
             Files.copy(input, fileToSave.toPath(), StandardCopyOption.REPLACE_EXISTING);
         }
 
-        System.out.println(fileToSave.getAbsolutePath());
+        String uploadName = fileToSave.getName();
+        String description = request.getParameter("description");
+        String date = String.valueOf(new Date());
+        String category = request.getParameter("selectCategory");
+
+        Picture picture = new Picture(uploadName, description, date, category);
 
         response.sendRedirect("index.jsp");
 
