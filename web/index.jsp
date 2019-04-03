@@ -34,6 +34,12 @@
     %>
 </div>
 
+<div id="displayPicture">
+    <%
+
+    %>
+</div>
+
 <h1 class="titleSupPictures">Welcome to SupPictures</h1>
 
 <div id="stats">
@@ -64,7 +70,6 @@
     </label>
     <input type="submit"/>
 </form>
-
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

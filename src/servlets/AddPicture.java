@@ -24,7 +24,8 @@ public class AddPicture extends HttpServlet {
         Part filePart = request.getPart("fileUploadInput");
         InputStream fileContent = filePart.getInputStream();
 
-        File uploads = new File("/uploads");
+        String appPath = request.getServletContext().getRealPath("/img_uploads");
+        File uploads = new File(appPath);
 
         String uploadedFileName = getSubmittedFileName(filePart);
         assert uploadedFileName != null;
