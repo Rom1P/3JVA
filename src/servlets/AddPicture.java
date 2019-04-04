@@ -1,7 +1,5 @@
 package servlets;
 
-import entities.Picture;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -55,8 +53,6 @@ public class AddPicture extends HttpServlet {
         String description = request.getParameter("description");
         String date = String.valueOf(new Date());
         String category = request.getParameter("selectCategory");
-
-        Picture picture = new Picture(uploadName, description, date, category);
 
         response.sendRedirect("index.jsp");
 

@@ -40,22 +40,22 @@ public class Register extends HttpServlet {
         EntityManagerFactory entityManagerFactory = null;
         entityManagerFactory = Persistence.createEntityManagerFactory("persistMySql");
 
-        User potato = new User();
+        User user = new User();
 
-        potato.setUsername(username);
-        potato.setPassword(password);
-        potato.setPhoneNumber(phone);
-        potato.setLastName(lastName);
-        potato.setFirstName(firstName);
-        potato.setPostalAddress(postal);
-        potato.setEmail(email);
-        potato.setLevel(1);
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setPhoneNumber(phone);
+        user.setLastName(lastName);
+        user.setFirstName(firstName);
+        user.setPostalAddress(postal);
+        user.setEmail(email);
+        user.setLevel(1);
 
         EntityManager em = entityManagerFactory.createEntityManager();
         EntityTransaction t = em.getTransaction();
         try {
             t.begin();
-            em.persist(potato);
+            em.persist(user);
             em.flush();
             t.commit();
         } finally {
