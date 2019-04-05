@@ -1,43 +1,41 @@
 package entities;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "users")
 public class User {
+    @Id
+    private int id;
+
+    @Column(name = "username")
     private String username;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "phone")
     private String phoneNumber;
+
+    @Column(name = "lastName")
     private String lastName;
+
+    @Column(name = "firstName")
     private String firstName;
+
+    @Column(name = "postal")
     private String postalAddress;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "level")
     private int level; //1 = user, 2 = admin
 
-    public User(String username, String password, String phoneNumber, String lastName, String firstName, String postalAddress, String email, int level) {
-        this.username = username;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.postalAddress = postalAddress;
-        this.email = email;
-        this.level = level;
-
-        boolean validInputs = checkInputsValidity();
-
-        if (validInputs){
-            addToDB();
-            loginAfterRegister();
-        }
-    }
-
-    private boolean checkInputsValidity(){
-        //TODO check if already in DB
-        return true;
-    }
-
-    private void addToDB(){
-
-    }
-
-    private void loginAfterRegister(){
+    public User() {
 
     }
 

@@ -34,6 +34,12 @@
     %>
 </div>
 
+<div id="displayPicture">
+    <%
+
+    %>
+</div>
+
 <h1 class="titleSupPictures">Welcome to SupPictures</h1>
 
 <div id="stats">
@@ -51,13 +57,20 @@
 </div>
 
 <form action="AddPicture" method="post" enctype="multipart/form-data">
-    <input type="file" name="fileUploadInput" accept="image/*"/>
-    <input type="submit" />
+    <label> Add a description
+        <input type="text" name="description">
+    </label>
+    <input class="form-control-file" type="file" name="fileUploadInput" accept="image/*"/>
+    <label> Associate a category
+        <select class="form-control" name="selectCategory">
+            <option value="nature">Nature</option>
+            <option value="automobile">Automobile</option>
+            <option value="animal">Animal</option>
+        </select>
+    </label>
+    <input type="submit"/>
 </form>
-
 </body>
-
-
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

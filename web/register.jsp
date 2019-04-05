@@ -14,15 +14,37 @@
 <form id="registerForm" action="Register" method="post">
     <div class="form-group">
         <label for="usernameRegisterInput">Username</label>
-        <input type="email" class="form-control" id="usernameRegisterInput" placeholder="Enter username" name="usernameRegisterInput">
+        <input type="text" class="form-control" id="usernameRegisterInput" placeholder="Enter username"
+               name="usernameRegisterInput">
+    </div>
+    <div class="form-group">
+        <label for="passwordRegisterInput">Password</label>
+        <input type="password" class="form-control" id="passwordRegisterInput" placeholder="Password"
+               name="passwordRegisterInput">
+    </div>
+    <div class="form-group">
+        <label for="usernameRegisterInput">Phone Number</label>
+        <input type="text" class="form-control" id="phoneNumberRegisterInput" placeholder="Enter username"
+               name="phoneNumberRegisterInput">
+    </div>
+    <div class="form-group">
+        <label for="usernameRegisterInput">Last Name</label>
+        <input type="text" class="form-control" id="lastNameRegisterInput" placeholder="Enter username"
+               name="lastNameRegisterInput">
+    </div>
+    <div class="form-group">
+        <label for="usernameRegisterInput">First Name</label>
+        <input type="text" class="form-control" id="firstNameRegisterInput" placeholder="Enter username"
+               name="firstNameRegisterInput">
+    </div>
+    <div class="form-group">
+        <label for="usernameRegisterInput">Postal Address</label>
+        <input type="text" class="form-control" id="postalRegisterInput" placeholder="Enter username"
+               name="postalRegisterInput">
     </div>
     <div class="form-group">
         <label for="emailRegisterInput">Email address</label>
         <input type="email" class="form-control" id="emailRegisterInput" placeholder="Enter email" name="emailRegisterInput">
-    </div>
-    <div class="form-group">
-        <label for="passwordRegisterInput">Password</label>
-        <input type="password" class="form-control" id="passwordRegisterInput" placeholder="Password" name="passwordRegisterInput">
     </div>
     <button type="submit" class="btn btn-primary">Register</button>
 </form>
