@@ -2,17 +2,19 @@ package utils;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import javax.servlet.http.HttpSessionAttributeListener;
-import javax.servlet.http.HttpSessionBindingEvent;
-import javax.servlet.http.HttpSessionEvent;
-import javax.servlet.http.HttpSessionListener;
+import javax.servlet.http.*;
+import java.util.ArrayList;
 
 public class Listener implements ServletContextListener,
         HttpSessionListener, HttpSessionAttributeListener {
 
     // Public constructor is required by servlet spec
     public Listener() {
+
     }
+
+    private static ArrayList<String> sessions = new ArrayList<>();
+    public static final String COUNTER = "session-counter";
 
     // -------------------------------------------------------
     // ServletContextListener implementation
@@ -36,10 +38,21 @@ public class Listener implements ServletContextListener,
     // -------------------------------------------------------
     public void sessionCreated(HttpSessionEvent se) {
         /* Session is created. */
+        HttpSession session = se.getSession();
+        sessions.add(session.getId());
+        session.setAttribute(Listener.COUNTER, this);
     }
 
     public void sessionDestroyed(HttpSessionEvent se) {
         /* Session is destroyed. */
+        System.out.println("SessionCounter.sessionDestroyed");
+        HttpSession session = se.getSession();
+        sessions.remove(session.getId());
+        session.setAttribute(Listener.COUNTER, this);
+    }
+
+    public int getCurrentNbUserSessions() {
+        return sessions.size();
     }
 
     // -------------------------------------------------------
