@@ -17,13 +17,14 @@
         if (session.getAttribute("username") == null) {
     %>
     <div>
-        <div>Want more features ? <a href="login.jsp">Login</a> or <a href="register.jsp">Register</a></div>
+        <div>Want more features ? <a href="${pageContext.request.contextPath}/Login">Login</a> or <a
+                href="${pageContext.request.contextPath}/Register">Register</a></div>
     </div>
 
     <% } else {
         String currentUsername = (String) session.getAttribute("username");
     %>
-    <a href="profile.jsp"><%= currentUsername %>
+    <a href="${pageContext.request.contextPath}/Profile"><%= currentUsername %>
     </a>
     <form method="post" action="Logout">
         <button class="btn btn-primary" type="submit">Logout</button>
@@ -36,7 +37,7 @@
 
 <div id="displayPicture">
     <%
-
+        //TODO LOAD LIST OF ALL PATHS AND FOREACH.....
     %>
 </div>
 
@@ -56,7 +57,13 @@
     <!-- TODO search engine -->
 </div>
 
+<%
+    if (session.getAttribute("username") != null) {
+%>
 <form action="AddPicture" method="post" enctype="multipart/form-data">
+    <label> Name :
+        <input type="text" name="name">
+    </label>
     <label> Add a description
         <input type="text" name="description">
     </label>
@@ -70,6 +77,9 @@
     </label>
     <input type="submit"/>
 </form>
+<% } %>
+
+
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

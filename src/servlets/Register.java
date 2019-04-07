@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(name = "Register", urlPatterns = "/Register")
@@ -27,18 +28,25 @@ public class Register extends HttpServlet {
         boolean inputValidity = checkInputValidity(username, password, phone, lastName, firstName, postal, email);
 
         if (inputValidity) {
-            register(username, password, phone, lastName, firstName, postal, email);
+            boolean success = register(username, password, phone, lastName, firstName, postal, email);
+
+            if (success) {
+                HttpSession session = request.getSession();
+
+                session.setAttribute("username", username);
+                response.sendRedirect("index.jsp");
+            }
         }
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        this.getServletContext().getRequestDispatcher("/register.jsp").forward(request, response);
     }
 
-    private void register(String username, String password, String phone, String lastName, String firstName, String postal, String email) {
-        EntityManagerFactory entityManagerFactory = null;
-        entityManagerFactory = Persistence.createEntityManagerFactory("persistMySql");
+    private boolean register(String username, String password, String phone, String lastName, String firstName, String postal, String email) {
+
+        boolean success = false;
 
         User user = new User();
 
@@ -51,6 +59,9 @@ public class Register extends HttpServlet {
         user.setEmail(email);
         user.setLevel(1);
 
+
+        EntityManagerFactory entityManagerFactory = null;
+        entityManagerFactory = Persistence.createEntityManagerFactory("persistMySql");
         EntityManager em = entityManagerFactory.createEntityManager();
         EntityTransaction t = em.getTransaction();
         try {
@@ -59,9 +70,15 @@ public class Register extends HttpServlet {
             em.flush();
             t.commit();
         } finally {
-            if (t.isActive()) t.rollback();
+            if (t.isActive()) {
+                t.rollback();
+            } else {
+                success = true;
+            }
             em.close();
         }
+
+        return success;
     }
 
     private boolean checkInputValidity(String username, String password, String phone, String lastName, String firstName, String postal, String email) {
