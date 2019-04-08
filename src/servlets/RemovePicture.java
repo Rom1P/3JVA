@@ -21,9 +21,9 @@ public class RemovePicture extends HttpServlet {
         if (id != 0) {
             String pathImgToDelete = getPathImg(id);
             if (!pathImgToDelete.equals("")) {
-                deleteImg(id); //remove BDD
+                deleteImg(id); //Remove BDD
 
-                File file = new File(pathImgToDelete);  //remove local img
+                File file = new File(pathImgToDelete);  //Remove local img
                 if (file.delete()) {
                     System.out.println("File deleted successfully !");
                 } else {
