@@ -29,6 +29,11 @@ body{
     margin: auto;
 }
 
+#profileForm{
+    width: 50%;
+    margin: auto;
+}
+
 #titleRegister{
     text-align: center;
 }

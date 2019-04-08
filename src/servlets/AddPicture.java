@@ -1,5 +1,11 @@
 package servlets;
 
+import entities.Picture;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -49,12 +55,15 @@ public class AddPicture extends HttpServlet {
             Files.copy(input, fileToSave.toPath(), StandardCopyOption.REPLACE_EXISTING);
         }
 
-        String uploadName = fileToSave.getName();
+        String name = request.getParameter("name");
         String description = request.getParameter("description");
         String date = String.valueOf(new Date());
         String category = request.getParameter("selectCategory");
+        String uploadName = fileToSave.getName();
 
         response.sendRedirect("index.jsp");
+
+        savePictureDb(name, description, date, category, uploadName);
 
 
     }
@@ -69,9 +78,35 @@ public class AddPicture extends HttpServlet {
         for (String cd : part.getHeader("content-disposition").split(";")) {
             if (cd.trim().startsWith("filename")) {
                 String fileName = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
-                return fileName.substring(fileName.lastIndexOf('/') + 1).substring(fileName.lastIndexOf('\\') + 1); // MSIE fix.
+                return fileName.substring(fileName.lastIndexOf('/') + 1).substring(fileName.lastIndexOf('\\') + 1);
             }
         }
         return null;
+    }
+
+    private void savePictureDb(String name, String description, String date, String category, String path) {
+        EntityManagerFactory entityManagerFactory = null;
+        entityManagerFactory = Persistence.createEntityManagerFactory("persistMySql");
+
+        Picture picture = new Picture();
+
+        picture.setName(name);
+        picture.setDescription(description);
+        picture.setDate(date);
+        picture.setCategory(category);
+        picture.setPath(path);
+
+
+        EntityManager em = entityManagerFactory.createEntityManager();
+        EntityTransaction t = em.getTransaction();
+        try {
+            t.begin();
+            em.persist(picture);
+            em.flush();
+            t.commit();
+        } finally {
+            if (t.isActive()) t.rollback();
+            em.close();
+        }
     }
 }
