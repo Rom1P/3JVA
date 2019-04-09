@@ -61,7 +61,7 @@ public class AddPicture extends HttpServlet {
         String category = request.getParameter("selectCategory");
         String uploadName = fileToSave.getName();
 
-        response.sendRedirect("index.jsp");
+        response.sendRedirect(request.getContextPath());
 
         savePictureDb(name, description, date, category, uploadName);
 

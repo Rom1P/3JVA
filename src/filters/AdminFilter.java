@@ -19,9 +19,9 @@ public class AdminFilter implements Filter {
         HttpSession session = request.getSession();
 
         if (session.getAttribute("username") == null) {
-            response.sendRedirect("index.jsp");
+            response.sendRedirect(request.getContextPath());
         } else if (session.getAttribute("level").toString().equals("1")){
-            response.sendRedirect("index.jsp");
+            response.sendRedirect(request.getContextPath());
         }
 
         else{

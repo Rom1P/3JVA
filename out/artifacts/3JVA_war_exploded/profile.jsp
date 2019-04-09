@@ -54,7 +54,8 @@
     </div>
     <div class="form-group">
         <label for="emailUpdateInput">Email address</label>
-        <input type="email" class="form-control" id="emailUpdateInput" placeholder="<%= email %>" name="emailUpdateInput">
+        <input type="email" class="form-control" id="emailUpdateInput" placeholder="<%= email %>"
+               name="emailUpdateInput">
     </div>
     <button type="submit" class="btn btn-primary">Update</button>
 </form>

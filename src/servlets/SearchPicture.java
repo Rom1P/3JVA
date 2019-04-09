@@ -1,6 +1,5 @@
 package servlets;
 
-
 import entities.Picture;
 
 import javax.persistence.EntityManager;
@@ -16,26 +15,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "Index", urlPatterns = "")
-public class Index extends HttpServlet {
+@WebServlet(name = "SearchPicture", urlPatterns = "/SearchPicture")
+public class SearchPicture extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String nameToSearch = request.getParameter("nameToSearch");
 
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        List<String> listPaths = requestPictures();
-        request.setAttribute("listPictures", listPaths);
-
-        this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-    }
-
-    private List<String> requestPictures() {
         List<String> listPaths = new ArrayList<>();
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistMySql");
         EntityManager em = emf.createEntityManager();
-        Query query = em.createQuery("select picture FROM Picture picture");
-        List<Picture> recentPictures = query.getResultList();
+        Query query = em.createQuery("select picture FROM Picture picture where picture.name LIKE '%" + nameToSearch + "'");
+        List<entities.Picture> recentPictures = query.getResultList();
 
         for (Picture picture : recentPictures) {
             listPaths.add(picture.getPath());
@@ -43,6 +32,12 @@ public class Index extends HttpServlet {
         em.close();
         emf.close();
 
-        return listPaths;
+        request.setAttribute("listPictures", listPaths);
+
+        request.getRequestDispatcher("/index.jsp").forward(request, response);
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
     }
 }

@@ -14,7 +14,8 @@ public class Picture extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String path = request.getParameter("path");
+        System.out.println(path);
         this.getServletContext().getRequestDispatcher("/picture.jsp").forward(request, response);
     }
 }

@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %><%--
   Home Page
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -35,12 +36,6 @@
     %>
 </div>
 
-<div id="displayPicture">
-    <%
-
-    %>
-</div>
-
 <h1 class="titleSupPictures">Welcome to SupPictures</h1>
 
 <div id="stats">
@@ -50,9 +45,12 @@
 </div>
 
 <div id="browsePictures">
-    <label> Search for some pictures :
-        <input type="text" class="form-control">
+    <form action="SearchPicture" method="post"><label> Search for some pictures :
+        <input type="text" class="form-control" id="nameToSearch" name="nameToSearch">
     </label>
+
+        <button class="btn btn-primary" type="submit">Search</button></form>
+
 
     <!-- TODO search engine -->
 </div>
@@ -78,6 +76,15 @@
     <input type="submit"/>
 </form>
 <% } %>
+
+<div id="displayPictures">
+    <%
+        List<String> listPaths = (List<String>) request.getAttribute("listPictures");
+        for (String picturePath:listPaths) {
+    %> <a href="${pageContext.request.contextPath}/Picture?path=<%=picturePath%>"><img width="100px" height="80px"  src="img_uploads/<%=picturePath%>" alt=""></a><%
+    }
+%>
+</div>
 
 
 </body>

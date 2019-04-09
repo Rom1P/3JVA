@@ -10,7 +10,7 @@
     </filter>
     <filter-mapping>
         <filter-name>ProfileFilter</filter-name>
-        <url-pattern>/profile.jsp</url-pattern>
+        <url-pattern>/Profile</url-pattern>
     </filter-mapping>
     <filter>
         <filter-name>AdminFilter</filter-name>
@@ -18,7 +18,7 @@
     </filter>
     <filter-mapping>
         <filter-name>AdminFilter</filter-name>
-        <url-pattern>/admin.jsp</url-pattern>
+        <url-pattern>/Admin</url-pattern>
     </filter-mapping>
     <filter>
         <filter-name>JspFilter</filter-name>
