@@ -24,8 +24,7 @@
                     name="javax.persistence.jdbc.url"
                     value="jdbc:mysql://localhost:3306/suppictures"/>
             <property
-                    name="hibernate.hbm2ddl.auto"
-                    value="update"/>
+                    name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
         </properties>
     </persistence-unit>

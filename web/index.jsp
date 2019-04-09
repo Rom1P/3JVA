@@ -1,9 +1,9 @@
-<%@ page import="java.util.List" %>
+<%@ page import="utils.Listener" %>
 <%--
   Home Page
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="utils.Listener"%>
+<%@ page import="java.util.List" %>
 <html>
 <head>
     <title>SupPictures</title>
@@ -13,7 +13,9 @@
 </head>
 <body>
 <%
-    Listener counter = (Listener) session.getAttribute(Listener.COUNTER);
+    Listener counter = (Listener) session.getAttribute("counterListenerAccess");
+
+    List<String> listPaths = (List<String>) request.getAttribute("listPictures");
 %>
 
 <div id="navbarTop">
@@ -42,9 +44,8 @@
 <h1 class="titleSupPictures">Welcome to SupPictures</h1>
 
 <div id="stats">
-    <p>Currently <%= counter.getCurrentNbUserSessions() %> on SupPictures</p>
-    <p>We're actually hosting . pictures</p>
-    <!-- TODO get stats websites -->
+    <p>Currently <%= counter.getNumbersOnline() %> on SupPictures</p>
+    <p>We're actually hosting <%= listPaths.size()%> pictures</p>
 </div>
 
 <div id="browsePictures">
@@ -54,40 +55,13 @@
 
         <button class="btn btn-primary" type="submit">Search</button>
     </form>
-
-
-    <!-- TODO search engine -->
 </div>
-
-<%
-    if (session.getAttribute("username") != null) {
-%>
-<form action="AddPicture" method="post" enctype="multipart/form-data">
-    <label> Name :
-        <input type="text" name="name">
-    </label>
-    <label> Add a description
-        <input type="text" name="description">
-    </label>
-    <input class="form-control-file" type="file" name="fileUploadInput" accept="image/*"/>
-    <label> Associate a category
-        <select class="form-control" name="selectCategory">
-            <option value="nature">Nature</option>
-            <option value="automobile">Automobile</option>
-            <option value="animal">Animal</option>
-        </select>
-    </label>
-    <input type="submit"/>
-</form>
-<% } %>
 
 <div id="displayPictures">
     <%
-        List<String> listPaths = (List<String>) request.getAttribute("listPictures");
         for (String picturePath : listPaths) {
-    %> <a href="${pageContext.request.contextPath}/Picture?path=<%=picturePath%>"><img width="100px" height="80px"
-                                                                                       src="img_uploads/<%=picturePath%>"
-                                                                                       alt=""></a><%
+    %> <a href="${pageContext.request.contextPath}/Picture?path=<%=picturePath%>">
+    <img width="100px" height="80px" src="img_uploads/<%=picturePath%>" alt=""></a><%
     }
 %>
 </div>

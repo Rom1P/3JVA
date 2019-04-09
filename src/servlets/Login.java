@@ -31,10 +31,12 @@ public class Login extends HttpServlet {
 
             session.setAttribute("username", username);
             session.setAttribute("level", levelUser);
+
+            request.removeAttribute("messageLogin");
             response.sendRedirect(request.getContextPath());
         } else {
-            //TODO returns some errors on login page
-            response.sendRedirect("Login");
+            request.setAttribute("messageLogin", "Username or password incorrect");
+            this.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
         }
 
     }

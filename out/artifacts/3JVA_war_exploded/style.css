@@ -37,3 +37,17 @@ body{
 #titleRegister{
     text-align: center;
 }
+
+#headerPictureDetails{
+    width: 50%;
+    margin: 1% auto auto;
+}
+
+#titleDetailsPicture{
+    text-align: center;
+    margin-top: 1%;
+}
+
+.pictureInDetails{
+    margin: auto;
+}

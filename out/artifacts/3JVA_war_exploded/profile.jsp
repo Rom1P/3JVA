@@ -1,4 +1,5 @@
-<%--=
+<%@ page import="entities.Picture" %>
+<%@ page import="java.util.List" %><%--=
 
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -21,6 +22,32 @@
     String email = (String) request.getAttribute("email");
 %>
 <h1 id="titleUpdate">SupPictures</h1>
+
+<h2>Upload</h2>
+
+<%
+    if (session.getAttribute("username") != null) {
+%>
+<form action="AddPicture" method="post" enctype="multipart/form-data">
+    <label> Name :
+        <input type="text" name="name">
+    </label>
+    <label> Add a description
+        <input type="text" name="description">
+    </label>
+    <input class="form-control-file" type="file" name="fileUploadInput" accept="image/*"/>
+    <label> Associate a category
+        <select class="form-control" name="selectCategory">
+            <option value="nature">Nature</option>
+            <option value="automobile">Automobile</option>
+            <option value="animal">Animal</option>
+        </select>
+    </label>
+    <input type="submit"/>
+</form>
+<% } %>
+
+<h2>Edit Profile</h2>
 <form id="profileForm" action="Profile" method="post">
     <div class="form-group">
         <label for="usernameUpdateInput">Username</label>
@@ -59,6 +86,21 @@
     </div>
     <button type="submit" class="btn btn-primary">Update</button>
 </form>
+
+<% List<Picture> allPicturesUser = (List<Picture>) request.getAttribute("picturesUser");%>
+<div class="picturesDiv"><% for (Picture picture : allPicturesUser) {%>
+    <p id="nameUser"><%=picture.getName()%>
+    </p>
+    <a href="${pageContext.request.contextPath}/Picture?path=<%=picture.getPath()%>">
+        <img width="100px" height="80px" src="img_uploads/<%=picture.getPath()%>" alt=""></a>
+    <form action="RemovePicture" method="post">
+        <input style="display: none;" name="id" value="<%=picture.getId()%>">
+        <button id="deletePicture" name="adminButton" class="btn btn-primary" type="submit" value="deletePicture">Delete
+            Picture
+        </button>
+    </form>
+    <%}%>
+</div>
 
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

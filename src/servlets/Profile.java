@@ -1,5 +1,6 @@
 package servlets;
 
+import entities.Picture;
 import entities.User;
 
 import javax.persistence.*;
@@ -10,18 +11,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "Profile", urlPatterns = "/Profile")
 public class Profile extends HttpServlet {
     private User currentUser;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String newPassword = (String) request.getParameter("passwordUpdateInput");
-        String newPhoneNumber = (String) request.getParameter("phoneNumberUpdateInput");
-        String newLastName = (String) request.getParameter("lastNameUpdateInput");
-        String newFirstName = (String) request.getParameter("firstNameUpdateInput");
-        String newPostal = (String) request.getParameter("postalUpdateInput");
-        String newEmail = (String) request.getParameter("emailUpdateInput");
+        String newPassword = request.getParameter("passwordUpdateInput");
+        String newPhoneNumber = request.getParameter("phoneNumberUpdateInput");
+        String newLastName = request.getParameter("lastNameUpdateInput");
+        String newFirstName = request.getParameter("firstNameUpdateInput");
+        String newPostal = request.getParameter("postalUpdateInput");
+        String newEmail = request.getParameter("emailUpdateInput");
 
 
         EntityManagerFactory entityManagerFactory = null;
@@ -75,8 +77,6 @@ public class Profile extends HttpServlet {
         EntityManager em = emf.createEntityManager();
         Query query = em.createQuery("select user FROM User user where user.username = '" + username + "'");
         currentUser = (User) query.getSingleResult();
-        em.close();
-        emf.close();
 
         request.setAttribute("username", currentUser.getUsername());
         request.setAttribute("password", currentUser.getPassword());
@@ -85,6 +85,14 @@ public class Profile extends HttpServlet {
         request.setAttribute("firstName", currentUser.getFirstName());
         request.setAttribute("postalAddress", currentUser.getPostalAddress());
         request.setAttribute("email", currentUser.getEmail());
+
+        Query queryPicture = em.createQuery("select picture FROM Picture picture where picture.usernamePublisher = '" + currentUser.getUsername() + "'");
+        List<Picture> allPicturesUser = queryPicture.getResultList();
+
+        request.setAttribute("picturesUser", allPicturesUser);
+
+        em.close();
+        emf.close();
 
         this.getServletContext().getRequestDispatcher("/profile.jsp").forward(request, response);
     }

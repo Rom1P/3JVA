@@ -1,9 +1,6 @@
 package entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 
@@ -11,6 +8,7 @@ import javax.persistence.Table;
 public class Picture {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @Column(name = "name")
@@ -27,6 +25,9 @@ public class Picture {
 
     @Column(name = "path")
     private String path;
+
+    @Column(name = "usernamePublisher")
+    private String usernamePublisher;
 
     public Picture() {
 
@@ -70,5 +71,21 @@ public class Picture {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUsernamePublisher() {
+        return usernamePublisher;
+    }
+
+    public void setUsernamePublisher(String usernamePublisher) {
+        this.usernamePublisher = usernamePublisher;
     }
 }

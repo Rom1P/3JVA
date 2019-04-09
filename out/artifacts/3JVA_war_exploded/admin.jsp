@@ -1,6 +1,6 @@
-<%@ page import="java.util.List" %>
+<%@ page import="entities.Picture" %>
 <%@ page import="entities.User" %>
-<%@ page import="entities.Picture" %><%--=
+<%@ page import="java.util.List" %><%--=
 
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -24,13 +24,31 @@
     </p>
     <form action="Admin" method="post">
         <input style="display: none;" name="idUser" value="<%=user.getId()%>">
-        <button id="deleteAccount" name="adminButton" class="btn btn-primary" type="submit" value="delete">Delete Account</button>
-        <button id="upgradeAccount" name="adminButton" class="btn btn-primary" type="submit" value="upgrade">Upgrade Account To Admin</button>
+        <button id="deleteAccount" name="adminButton" class="btn btn-primary" type="submit" value="delete">Delete
+            Account
+        </button>
+        <button id="upgradeAccount" name="adminButton" class="btn btn-primary" type="submit" value="upgrade">Upgrade
+            Account To Admin
+        </button>
     </form>
     <%
         }%>
 </div>
-<div id="picturesDiv"></div>
+<div class="picturesDiv"><% for (Picture picture : picturesList) {
+%>
+    <p id="nameUser"><%=picture.getName()%></p>
+
+    <a href="${pageContext.request.contextPath}/Picture?path=<%=picture.getPath()%>">
+        <img width="100px" height="80px" src="img_uploads/<%=picture.getPath()%>" alt=""></a>
+    <form action="Admin" method="post">
+        <input style="display: none;" name="idPicture" value="<%=picture.getId()%>">
+        <button id="deletePicture" name="adminButton" class="btn btn-primary" type="submit" value="deletePicture">Delete
+            Picture
+        </button>
+    </form>
+    <%
+        }%>
+</div>
 
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

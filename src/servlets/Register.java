@@ -2,10 +2,7 @@ package servlets;
 
 import entities.User;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "Register", urlPatterns = "/Register")
 public class Register extends HttpServlet {
@@ -28,14 +26,42 @@ public class Register extends HttpServlet {
         boolean inputValidity = checkInputValidity(username, password, phone, lastName, firstName, postal, email);
 
         if (inputValidity) {
-            boolean success = register(username, password, phone, lastName, firstName, postal, email);
 
-            if (success) {
-                HttpSession session = request.getSession();
 
-                session.setAttribute("username", username);
-                response.sendRedirect(request.getContextPath());
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistMySql");
+            EntityManager em = emf.createEntityManager();
+
+            Query queryPicture = em.createQuery("select user FROM User user where user.username='" + username + "'");
+            List<User> allPicturesUser = queryPicture.getResultList();
+            em.close();
+            emf.close();
+
+            if (allPicturesUser.size() > 0) {
+                request.setAttribute("messageRegister", "User with this username already exists");
+
+                this.getServletContext().getRequestDispatcher("/register.jsp").forward(request, response);
+            } else {
+                boolean success = register(username, password, phone, lastName, firstName, postal, email);
+
+                if (success) {
+                    HttpSession session = request.getSession();
+
+                    request.removeAttribute("messageRegister");
+                    session.setAttribute("username", username);
+                    response.sendRedirect(request.getContextPath());
+                } else {
+                    request.setAttribute("messageRegister", "Error while contacting the database. Please try again later");
+
+                    this.getServletContext().getRequestDispatcher("/register.jsp").forward(request, response);
+                }
             }
+
+
+        } else {
+            request.setAttribute("messageRegister", "Please check validity of your inputs");
+
+            this.getServletContext().getRequestDispatcher("/register.jsp").forward(request, response);
+
         }
 
     }
@@ -83,6 +109,11 @@ public class Register extends HttpServlet {
 
     private boolean checkInputValidity(String username, String password, String phone, String lastName, String firstName, String postal, String email) {
         boolean validity = true;
+
+        if (username == null || password == null || phone == null || lastName == null || firstName == null || postal == null || email == null) {
+            validity = false;
+        }
+
         return validity;
     }
 }

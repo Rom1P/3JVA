@@ -14,7 +14,6 @@ public class Listener implements ServletContextListener,
     }
 
     private static ArrayList<String> sessions = new ArrayList<>();
-    public static final String COUNTER = "session-counter";
 
     // -------------------------------------------------------
     // ServletContextListener implementation
@@ -40,18 +39,17 @@ public class Listener implements ServletContextListener,
         /* Session is created. */
         HttpSession session = se.getSession();
         sessions.add(session.getId());
-        session.setAttribute(Listener.COUNTER, this);
+        session.setAttribute("counterListenerAccess", this);
     }
 
     public void sessionDestroyed(HttpSessionEvent se) {
         /* Session is destroyed. */
-        System.out.println("SessionCounter.sessionDestroyed");
         HttpSession session = se.getSession();
         sessions.remove(session.getId());
-        session.setAttribute(Listener.COUNTER, this);
+        session.setAttribute("counterListenerAccess", this);
     }
 
-    public int getCurrentNbUserSessions() {
+    public int getNumbersOnline() {
         return sessions.size();
     }
 

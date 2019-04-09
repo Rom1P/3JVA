@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -13,14 +12,20 @@
 <form id="loginForm" action="Login" method="post">
     <div class="form-group">
         <label for="usernameLoginInput">Username</label>
-        <input type="text" class="form-control" id="usernameLoginInput" placeholder="Enter username" name="usernameLoginInput">
+        <input type="text" class="form-control" id="usernameLoginInput" placeholder="Enter username"
+               name="usernameLoginInput">
     </div>
     <div class="form-group">
         <label for="passwordLoginInput">Password</label>
-        <input type="password" class="form-control" id="passwordLoginInput" placeholder="Password" name="passwordLoginInput">
+        <input type="password" class="form-control" id="passwordLoginInput" placeholder="Password"
+               name="passwordLoginInput">
     </div>
     <button type="submit" class="btn btn-primary">Login</button>
 </form>
+
+<% if (request.getAttribute("messageLogin") != null) {%>
+<span id="messageDisplayLogin"><%=request.getAttribute("messageLogin")%></span>
+<%}%>
 
 </body>
 

@@ -20,7 +20,32 @@ public class Admin extends HttpServlet {
         System.out.println(button);
 
         if (button.equals("delete")) {
+            EntityManagerFactory entityManagerFactory = null;
+            entityManagerFactory = Persistence.createEntityManagerFactory("persistMySql");
 
+            EntityManager em = entityManagerFactory.createEntityManager();
+            int userId = Integer.parseInt(request.getParameter("idUser"));
+
+            EntityTransaction t = em.getTransaction();
+            try {
+                t.begin();
+
+                Query deleteUser = em.createQuery("delete FROM User user where user.id = " + userId + "");
+
+                deleteUser.executeUpdate();
+                em.flush();
+                t.commit();
+            } finally {
+                if (t.isActive()) {
+                    t.rollback();
+                } else {
+
+                }
+                em.close();
+            }
+
+
+            entityManagerFactory.close();
 
         } else if (button.equals("upgrade")) {
             EntityManagerFactory entityManagerFactory = null;
@@ -42,6 +67,35 @@ public class Admin extends HttpServlet {
                 }
                 em.close();
             }
+
+            entityManagerFactory.close();
+
+        } else if (button.equals("deletePicture")) {
+            EntityManagerFactory entityManagerFactory = null;
+            entityManagerFactory = Persistence.createEntityManagerFactory("persistMySql");
+
+            EntityManager em = entityManagerFactory.createEntityManager();
+            int pictureId = Integer.parseInt(request.getParameter("idPicture"));
+
+            EntityTransaction t = em.getTransaction();
+            try {
+                t.begin();
+
+                Query deleteUser = em.createQuery("delete FROM Picture picture where picture.id = " + pictureId + "");
+
+                deleteUser.executeUpdate();
+                em.flush();
+                t.commit();
+            } finally {
+                if (t.isActive()) {
+                    t.rollback();
+                } else {
+
+                }
+                em.close();
+            }
+
+            entityManagerFactory.close();
         }
 
         response.sendRedirect("Admin");

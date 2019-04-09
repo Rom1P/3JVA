@@ -21,7 +21,7 @@ public class RemovePicture extends HttpServlet {
         if (id != 0) {
             String pathImgToDelete = getPathImg(id);
             if (!pathImgToDelete.equals("")) {
-                deleteImg(id); //Remove BDD
+                deleteImg(id); //Remove DB
 
                 File file = new File(pathImgToDelete);  //Remove local img
                 if (file.delete()) {
@@ -31,6 +31,8 @@ public class RemovePicture extends HttpServlet {
                 }
             }
         }
+
+        response.sendRedirect("Profile");
     }
 
     private String getPathImg(int id) {
