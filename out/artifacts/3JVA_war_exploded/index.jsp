@@ -3,6 +3,7 @@
   Home Page
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="utils.Listener"%>
 <html>
 <head>
     <title>SupPictures</title>
@@ -11,7 +12,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+<%
+    Listener counter = (Listener) session.getAttribute(Listener.COUNTER);
+%>
 
 <div id="navbarTop">
     <%
@@ -39,7 +42,7 @@
 <h1 class="titleSupPictures">Welcome to SupPictures</h1>
 
 <div id="stats">
-    <p>Currently . on SupPictures</p>
+    <p>Currently <%= counter.getCurrentNbUserSessions() %> on SupPictures</p>
     <p>We're actually hosting . pictures</p>
     <!-- TODO get stats websites -->
 </div>
