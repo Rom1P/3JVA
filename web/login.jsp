@@ -8,25 +8,28 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1 id="titleLogin">SupPictures - Sign In</h1>
-<form id="loginForm" action="Login" method="post">
-    <div class="form-group">
-        <label for="usernameLoginInput">Username</label>
-        <input type="text" class="form-control" id="usernameLoginInput" placeholder="Enter username"
-               name="usernameLoginInput">
-    </div>
-    <div class="form-group">
-        <label for="passwordLoginInput">Password</label>
-        <input type="password" class="form-control" id="passwordLoginInput" placeholder="Password"
-               name="passwordLoginInput">
-    </div>
-    <button type="submit" class="btn btn-primary">Login</button>
-</form>
+<h1 id="titleLogin" style="text-align: center">SupPictures - Sign In</h1>
+<div style="margin:auto; width: 60%">
 
-<% if (request.getAttribute("messageLogin") != null) {%>
-<span id="messageDisplayLogin"><%=request.getAttribute("messageLogin")%></span>
-<%}%>
+    <form id="loginForm" action="Login" method="post">
+        <div class="form-group">
+            <label for="usernameLoginInput">Username</label>
+            <input type="text" class="form-control" id="usernameLoginInput" placeholder="Enter username"
+                   name="usernameLoginInput">
+        </div>
+        <div class="form-group">
+            <label for="passwordLoginInput">Password</label>
+            <input type="password" class="form-control" id="passwordLoginInput" placeholder="Password"
+                   name="passwordLoginInput">
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
 
+    <% if (request.getAttribute("messageLogin") != null) {%>
+    <span id="messageDisplayLogin"><%=request.getAttribute("messageLogin")%></span>
+    <%}%>
+
+</div>
 </body>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

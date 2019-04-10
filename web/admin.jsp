@@ -17,39 +17,56 @@
     List<User> usersList = (List<User>) request.getAttribute("usersList");
     List<Picture> picturesList = (List<Picture>) request.getAttribute("picturesList");
 %>
+
+<div>
+
+    <br>
+    <br>
+    <a class="btn btn-primary" href="${pageContext.request.contextPath}">Return to home</a></div>
+
+
+<h2>Manage Users</h2>
 <div id="usersDiv">
-    <% for (User user : usersList) {
-    %>
+    <% for (User user : usersList) {%>
+    <div class="col-lg-2 text-center">
     <p id="nameUser"><%=user.getUsername()%>
     </p>
     <form action="Admin" method="post">
+
         <input style="display: none;" name="idUser" value="<%=user.getId()%>">
         <button id="deleteAccount" name="adminButton" class="btn btn-primary" type="submit" value="delete">Delete
             Account
         </button>
+        <br>
+        <br>
         <button id="upgradeAccount" name="adminButton" class="btn btn-primary" type="submit" value="upgrade">Upgrade
             Account To Admin
         </button>
     </form>
+    </div>
     <%
         }%>
 </div>
-<div class="picturesDiv"><% for (Picture picture : picturesList) {
-%>
-    <p id="nameUser"><%=picture.getName()%>
-    </p>
+<h2>Manage Pictures</h2>
+<div class="row"><% for (Picture picture : picturesList) {%>
 
-    <a href="${pageContext.request.contextPath}/Picture?path=<%=picture.getPath()%>">
-        <img width="100px" height="80px" src="img_uploads/<%=picture.getPath()%>" alt=""></a>
-    <form action="Admin" method="post">
-        <input style="display: none;" name="idPicture" value="<%=picture.getId()%>">
-        <button id="deletePicture" name="adminButton" class="btn btn-primary" type="submit" value="deletePicture">Delete
-            Picture
-        </button>
-    </form>
-    <%
-        }%>
+    <div class="col-lg-2 text-center">
+        <p class="nameUser"><%=picture.getName()%>
+        </p>
+
+        <a href="${pageContext.request.contextPath}/Picture?path=<%=picture.getPath()%>">
+            <img class="imgForDisplay" src="img_uploads/<%=picture.getPath()%>" alt=""></a>
+        <form action="Admin" method="post">
+            <input type="hidden" name="idPicture" value="<%=picture.getId()%>">
+            <button id="deletePicture" name="adminButton" class="btn btn-primary" type="submit" value="deletePicture">
+                Delete
+                Picture
+            </button>
+        </form>
+    </div>
+    <%}%>
 </div>
+
 
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

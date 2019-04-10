@@ -21,31 +21,42 @@
     String postalAddress = (String) request.getAttribute("postalAddress");
     String email = (String) request.getAttribute("email");
 %>
-<h1 id="titleUpdate">SupPictures</h1>
+<h1 id="titleUpdate" style="text-align: center">SupPictures - Profile</h1>
 
-<h2>Upload</h2>
 
-<%
-    if (session.getAttribute("username") != null) {
-%>
-<form action="AddPicture" method="post" enctype="multipart/form-data">
-    <label> Name :
-        <input type="text" name="name">
-    </label>
-    <label> Add a description
-        <input type="text" name="description">
-    </label>
-    <input class="form-control-file" type="file" name="fileUploadInput" accept="image/*"/>
-    <label> Associate a category
-        <select class="form-control" name="selectCategory">
-            <option value="nature">Nature</option>
-            <option value="automobile">Automobile</option>
-            <option value="animal">Animal</option>
-        </select>
-    </label>
-    <input type="submit"/>
-</form>
-<% } %>
+<div>
+    <br>
+    <br>
+    <a class="btn btn-primary" href="${pageContext.request.contextPath}">Return to home</a></div>
+
+<div class="text-center">
+
+    <h2>Upload</h2>
+
+    <%
+        if (session.getAttribute("username") != null) {
+    %>
+    <form action="AddPicture" method="post" enctype="multipart/form-data">
+        <label> Name :
+            <input class="form-control" type="text" name="name">
+        </label>
+        <label> Add a description
+            <input class="form-control" type="text" name="description">
+        </label>
+        <input style="text-align: center" class="form-control-file" type="file" name="fileUploadInput"
+               accept="image/*"/>
+        <label> Associate a category
+            <select class="form-control" name="selectCategory">
+                <option value="nature">Nature</option>
+                <option value="automobile">Automobile</option>
+                <option value="animal">Animal</option>
+            </select>
+        </label>
+        <input type="submit"/>
+    </form>
+    <% } %>
+</div>
+
 
 <h2>Edit Profile</h2>
 <form id="profileForm" action="Profile" method="post">
@@ -88,19 +99,27 @@
 </form>
 
 <% List<Picture> allPicturesUser = (List<Picture>) request.getAttribute("picturesUser");%>
-<div class="picturesDiv"><% for (Picture picture : allPicturesUser) {%>
-    <p id="nameUser"><%=picture.getName()%>
-    </p>
-    <a href="${pageContext.request.contextPath}/Picture?path=<%=picture.getPath()%>">
-        <img width="100px" height="80px" src="img_uploads/<%=picture.getPath()%>" alt=""></a>
-    <form action="RemovePicture" method="post">
-        <input style="display: none;" name="id" value="<%=picture.getId()%>">
-        <button id="deletePicture" name="adminButton" class="btn btn-primary" type="submit" value="deletePicture">Delete
-            Picture
-        </button>
-    </form>
+
+<h2>Manage Pictures</h2>
+<div class="row"><% for (Picture picture : allPicturesUser) {%>
+
+    <div class="col-lg-2 text-center">
+        <p class="nameUser"><%=picture.getName()%>
+        </p>
+
+        <a href="${pageContext.request.contextPath}/Picture?path=<%=picture.getPath()%>">
+            <img class="imgForDisplay" src="img_uploads/<%=picture.getPath()%>" alt=""></a>
+        <form action="Admin" method="post">
+            <input type="hidden" name="idPicture" value="<%=picture.getId()%>">
+            <button id="deletePicture" name="adminButton" class="btn btn-primary" type="submit" value="deletePicture">
+                Delete
+                Picture
+            </button>
+        </form>
+    </div>
     <%}%>
 </div>
+
 
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

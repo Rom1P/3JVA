@@ -30,18 +30,28 @@
     <% } else {
         String currentUsername = (String) session.getAttribute("username");
     %>
-    <a href="${pageContext.request.contextPath}/Profile"><%= currentUsername %>
+    <a class="btn btn-primary buttonIndex" href="${pageContext.request.contextPath}/Profile"><%= currentUsername %>
     </a>
     <form method="post" action="Logout">
-        <button class="btn btn-primary" type="submit">Logout</button>
+        <button class="btn btn-primary buttonIndex" type="submit">Logout</button>
     </form>
 
     <%
         }
     %>
+
+    <% if (session.getAttribute("level") != null) {
+        if (session.getAttribute("level").toString().equals("2")) {%>
+    <a class="btn btn-primary buttonIndex" href="${pageContext.request.contextPath}/Admin">Admin</a>
+    <%
+            }
+        }
+    %>
+
 </div>
 
-<h1 class="titleSupPictures">Welcome to SupPictures</h1>
+<h1 style="font-size: 0px" class="titleSupPictures">s</h1>
+<h1 style="display: block" class="titleSupPictures">Welcome to SupPictures</h1>
 
 <div id="stats">
     <p>Currently <%= counter.getNumbersOnline() %> on SupPictures</p>
@@ -60,8 +70,8 @@
 <div id="displayPictures">
     <%
         for (String picturePath : listPaths) {
-    %> <a href="${pageContext.request.contextPath}/Picture?path=<%=picturePath%>">
-    <img width="100px" height="80px" src="img_uploads/<%=picturePath%>" alt=""></a><%
+    %> <a class="containerImgDisplay" href="${pageContext.request.contextPath}/Picture?path=<%=picturePath%>">
+    <img class="imgForDisplay img-fluid" src="img_uploads/<%=picturePath%>" alt=""></a><%
     }
 %>
 </div>

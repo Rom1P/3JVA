@@ -11,29 +11,35 @@
 </head>
 <body>
 
-<div class="container">
-    <div class="row">
-        <h2>Some Title</h2>
+<div class="container text-center">
+    <div class="row text-center" id="titleDetailsPicture">
+        <h2 class=""><%=request.getAttribute("namePicture")%>
+        </h2>
     </div>
 
-    <img class="img-left"
+    <img class="imgForDisplay"
          src="img_uploads/<%=request.getAttribute("pathPicture")%>" alt=""/>
-    <p>
-        Description :
-        <%=request.getAttribute("descriptionPicture")%>
-    </p>
-    <p>
-        Category :
-        <%=request.getAttribute("categoryPicture")%>
-    </p>
-    <p>
-        Date :
-        <%=request.getAttribute("datePicture")%>
-    </p>
 
+    <div id="infosPicturesDetails" class="float-left">
+        <p>
+            Description :
+            <%=request.getAttribute("descriptionPicture")%>
+        </p>
+        <p>
+            Category :
+            <%=request.getAttribute("categoryPicture")%>
+        </p>
+        <p>
+            Date :
+            <%=request.getAttribute("datePicture")%>
+        </p>
+    </div>
 
 </div>
-
+<div class="text-center">
+    <br>
+    <br>
+    <a class="btn btn-primary" href="${pageContext.request.contextPath}">Return to home</a></div>
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

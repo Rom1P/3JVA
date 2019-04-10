@@ -1,30 +1,28 @@
-body{
+body {
     background: #111324;
     color: whitesmoke;
 }
 
-.titleSupPictures{
+.titleSupPictures {
     text-align: center;
     margin-top: 3%;
 }
 
 #navbarTop {
-    padding-top: 10px;
-    padding-right: 10px;
-    text-align: right;
+
 }
 
-#stats{
+#stats {
     text-align: center;
     margin-top: 3%;
 }
 
-#browsePictures{
+#browsePictures {
     text-align: center;
     margin-top: 3%;
 }
 
-#registerForm{
+#registerForm {
     width: 50%;
     margin: auto;
 }
@@ -34,7 +32,7 @@ body{
     margin: auto;
 }
 
-#titleRegister{
+#titleRegister {
     text-align: center;
 }
 
@@ -50,4 +48,24 @@ body{
 
 .pictureInDetails {
     margin: auto;
+}
+
+.containerImgDisplay {
+    margin: 1%;
+}
+
+.imgForDisplay {
+    max-width: 300px;
+}
+
+#deletePicture {
+    margin-top: 2%;
+}
+
+#infosPicturesDetails {
+    margin-top: 1%;
+}
+
+.buttonIndex {
+    float: right;
 }
